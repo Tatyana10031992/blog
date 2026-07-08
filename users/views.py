@@ -56,8 +56,14 @@ class RegisterView(View):
     
     def post(self, request):
         form = RegisterForm(request.POST)
-
+        print(0)
         if not form.is_valid():
+              print({   
+                    "username_value":request.POST.get ("username", "").strip(),
+                    "email_value": request.POST.get("email", "").strip(),
+                    "errors": form.errors,
+                    "non_field_errors": form.non_field_errors
+                })
               return render(
                  request, 
                  self.template_name,
@@ -68,7 +74,7 @@ class RegisterView(View):
                     "non_field_errors": form.non_field_errors
                 }
              )
-        
+        print(2)
         user = form.save()
         login(request, user)
         messages.success(request, "Регистрация выполнен.")
