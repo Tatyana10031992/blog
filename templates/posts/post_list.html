@@ -12,14 +12,16 @@
             </div>
 
             {% if user.is_authenticated %}
-                <button class="
+                <a
+                href="{% url 'post_create' %}"
+                class="
                     border-0 bg-black text-white
                     h-10 flex items-center justify-center
                     rounder-lg px-4
                 ">
-                Написать пост
-            </button>
-            {% endif %}
+                    Написать пост
+                </a>
+           {% endif %}
         </div>
 
 
