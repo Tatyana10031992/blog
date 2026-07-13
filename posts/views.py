@@ -39,7 +39,7 @@ class PostDetailView(DeleteView):
     model = Post
     template_name = "posts/post_detail.html"
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect("login")
         
@@ -47,7 +47,7 @@ class PostDetailView(DeleteView):
         comment_text = request.POST.get("text", "").strip()
 
         if comment_text:
-            Comment.object.create(
+            Comment.objects.create(
                 post=self.object,
                 author = request.user,
                 text=comment_text
@@ -83,7 +83,7 @@ class PostCreateView(LoginRequiredMixin, View):
 class AuthorRequiredMixin(UserPassesTestMixin):
     def get_object(self, queryset=None):
         if not hasattr(self, "object"):
-            self.object = self.get_object_or_404(Post, pk=self.kwargs["pk"])
+            self.object = get_object_or_404(Post, pk=self.kwargs["pk"])
         return self.object
     
     def test_func(self):
