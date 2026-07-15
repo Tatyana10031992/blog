@@ -114,7 +114,7 @@ class PostUpdateView(LoginRequiredMixin, AuthorRequiredMixin, View):
         return redirect(post)
     
 
-class PostDeleteView(LoginRequiredMixin, AuthorRequiredMixin, DetailView):
+class PostDeleteView(LoginRequiredMixin, AuthorRequiredMixin, DeleteView):
     model = Post
     template_name = "posts/post_confirm_delete.html"
     success_url = reverse_lazy("post_list")
